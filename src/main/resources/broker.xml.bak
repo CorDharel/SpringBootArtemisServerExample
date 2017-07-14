@@ -1,0 +1,40 @@
+<?xml version='1.0'?>
+
+<!-- This broker.xml file is actually not needed anymore and just shows how 
+	the options would be if the project was a normal Spring project using Artemis. -->
+
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="urn:activemq" xsi:schemaLocation="urn:activemq /schema/artemis-server.xsd">
+
+	<jms xmlns="urn:activemq:jms">
+		<!--the queue used by the example -->
+		<queue name="exampleQueue" />
+	</jms>
+
+	<core xmlns="urn:activemq:core">
+
+		<persistence-enabled>false</persistence-enabled>
+		<journal-type>NIO</journal-type>
+
+		<!-- Acceptors -->
+		<acceptors>
+			<acceptor name="netty">tcp://localhost:61616</acceptor>
+		</acceptors>
+
+		<!-- Other config -->
+
+		<security-settings>
+			<!--security for example queue -->
+			<security-setting match="#">
+				<permission type="createDurableQueue" roles="example" />
+				<permission type="deleteDurableQueue" roles="example" />
+				<permission type="createNonDurableQueue" roles="example" />
+				<permission type="deleteNonDurableQueue" roles="example" />
+				<permission type="consume" roles="example" />
+				<permission type="send" roles="example" />
+			</security-setting>
+		</security-settings>
+
+	</core>
+</configuration>
